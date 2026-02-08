@@ -445,6 +445,18 @@ section {
 .team {
     background: var(--gradient-primary);
     position: relative;
+    padding: var(--spacing-xl) 0;
+}
+
+.team::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+    pointer-events: none;
 }
 
 .team .section-tag {
@@ -1060,7 +1072,7 @@ section {
     }
     
     .member-photo {
-        height: 250px;
+        height: 200px;
     }
     
     .member-info {
@@ -1068,15 +1080,30 @@ section {
     }
     
     .member-name {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
     
     .member-specialty {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
     }
     
     .member-description {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+    
+    .member-tags {
+        margin-top: var(--spacing-xs);
+    }
+    
+    .member-tag {
+        font-size: 0.7rem;
+        padding: 2px 8px;
+    }
+    
+    .personal-web-link {
+        font-size: 0.8rem;
+        margin-top: var(--spacing-xs);
     }
     
     .gallery-grid {
@@ -1146,5 +1173,148 @@ section {
     .footer-section p,
     .footer-section ul li a {
         font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --spacing-xs: 0.3rem;
+        --spacing-sm: 0.6rem;
+        --spacing-md: 1rem;
+        --spacing-lg: 2rem;
+        --spacing-xl: 2.5rem;
+    }
+    
+    .container {
+        padding: 0 var(--spacing-xs);
+    }
+    
+    .hero {
+        min-height: 60vh;
+    }
+    
+    .hero-title {
+        font-size: clamp(1.8rem, 10vw, 3rem);
+    }
+    
+    .hero-subtitle {
+        font-size: 0.95rem;
+    }
+    
+    .btn-primary, .btn-secondary {
+        padding: 12px 24px;
+        font-size: 0.95rem;
+    }
+    
+    .section-title {
+        font-size: clamp(1.5rem, 6vw, 2rem);
+    }
+    
+    .section-description {
+        font-size: 0.95rem;
+    }
+    
+    .service-category {
+        padding: var(--spacing-sm);
+        border-radius: 15px;
+    }
+    
+    .category-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.8rem;
+    }
+    
+    .category-header h3 {
+        font-size: 1.1rem;
+    }
+    
+    .service-item {
+        padding: 8px 0;
+        font-size: 0.9rem;
+    }
+    
+    .search-box input {
+        padding: 12px 16px;
+        padding-right: 45px;
+        font-size: 0.95rem;
+    }
+    
+    .tag {
+        padding: 5px 12px;
+        font-size: 0.75rem;
+    }
+    
+    .team {
+        padding: var(--spacing-lg) 0;
+    }
+    
+    .team-grid {
+        gap: var(--spacing-sm);
+    }
+    
+    .member-photo {
+        height: 180px;
+    }
+    
+    .member-info {
+        padding: var(--spacing-xs);
+    }
+    
+    .member-name {
+        font-size: 1rem;
+    }
+    
+    .member-specialty {
+        font-size: 0.85rem;
+    }
+    
+    .member-description {
+        font-size: 0.8rem;
+    }
+    
+    .member-tag {
+        font-size: 0.65rem;
+        padding: 2px 6px;
+    }
+    
+    .personal-web-link {
+        font-size: 0.75rem;
+    }
+    
+    .gallery-item {
+        height: 180px;
+    }
+    
+    .contact-item {
+        padding: var(--spacing-xs);
+        gap: var(--spacing-sm);
+    }
+    
+    .contact-icon {
+        font-size: 1.3rem;
+        min-width: 35px;
+        height: 35px;
+    }
+    
+    .contact-item h4 {
+        font-size: 0.95rem;
+    }
+    
+    .contact-item p {
+        font-size: 0.85rem;
+    }
+    
+    .footer-logo {
+        height: 45px;
+    }
+    
+    .footer-section h4 {
+        font-size: 1rem;
+    }
+    
+    .footer-section p,
+    .footer-section ul li a {
+        font-size: 0.85rem;
     }
 }
