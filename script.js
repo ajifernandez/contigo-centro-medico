@@ -167,7 +167,14 @@ const searchInput = document.getElementById('prof-search');
 const tagsContainer = document.getElementById('active-tags');
 
 function renderProfessionals() {
-    if (!teamGrid) return;
+    const teamGrid = document.getElementById('team-grid');
+    
+    if (!teamGrid) {
+        console.error('Team grid element not found');
+        return;
+    }
+    
+    console.log('Rendering professionals...', PROFESSIONALS.length);
     
     teamGrid.innerHTML = "";
     
@@ -180,6 +187,8 @@ function renderProfessionals() {
         
         return matchesSearch && matchesTags;
     });
+
+    console.log('Filtered professionals:', filtered.length);
 
     if (filtered.length === 0) {
         teamGrid.innerHTML = '<div class="no-results">No se encontraron profesionales con esos criterios.</div>';
@@ -211,6 +220,8 @@ function renderProfessionals() {
         `;
         teamGrid.appendChild(card);
     });
+    
+    console.log('Professionals rendered successfully');
 }
 
 function renderTags() {
@@ -237,17 +248,65 @@ function renderTags() {
     });
 }
 
-if (searchInput) {
-    searchInput.addEventListener('input', (e) => {
-        activeFilter = e.target.value;
-        renderProfessionals();
-    });
-}
+// Mobile detection
+const isMobile = () => {
+    return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+};
 
-// Initial render
-document.addEventListener('DOMContentLoaded', () => {
+// Enhanced initialization
+function initializeProfessionals() {
+    console.log('Initializing professionals section...', isMobile() ? 'mobile' : 'desktop');
+    
+    const teamGrid = document.getElementById('team-grid');
+    const searchInput = document.getElementById('prof-search');
+    const tagsContainer = document.getElementById('active-tags');
+    
+    if (!teamGrid) {
+        console.error('Team grid element not found during initialization');
+        return;
+    }
+    
+    // Clear loading state
+    teamGrid.innerHTML = '';
+    
+    // Render tags and professionals
     renderTags();
     renderProfessionals();
+    
+    // Setup search functionality (only if not already setup)
+    if (searchInput && !searchInput.hasAttribute('data-setup')) {
+        searchInput.addEventListener('input', (e) => {
+            activeFilter = e.target.value;
+            renderProfessionals();
+        });
+        searchInput.setAttribute('data-setup', 'true');
+    }
+    
+    console.log('Professionals section initialized successfully');
+}
+
+// Initial render with multiple fallbacks
+document.addEventListener('DOMContentLoaded', () => {
+    // Try immediate render
+    initializeProfessionals();
+    
+    // Fallback for slow mobile browsers
+    setTimeout(() => {
+        const teamGrid = document.getElementById('team-grid');
+        if (teamGrid && teamGrid.children.length === 0) {
+            console.log('Fallback: Re-initializing professionals...');
+            initializeProfessionals();
+        }
+    }, 500);
+});
+
+// Final fallback on window load
+window.addEventListener('load', () => {
+    const teamGrid = document.getElementById('team-grid');
+    if (teamGrid && teamGrid.innerHTML.includes('Cargando profesionales')) {
+        console.log('Final fallback: Re-initializing professionals...');
+        initializeProfessionals();
+    }
 });
 
 console.log('Contigo Centro Médico Integral - Website loaded successfully');
