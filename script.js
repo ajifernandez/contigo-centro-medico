@@ -147,7 +147,7 @@ const PROFESSIONALS = [
         description: "Atención integral y personalizada para adultos, enfocada en la prevención y el bienestar.",
         tags: ["Medicina Familiar", "Adultos"],
         icon: "👩‍⚕️",
-        personalWebsite: "file:///home/user/Projects/others/beatriz_tu_medica_de_familia/landing-page/index.html"
+        personalWebsite: "https://beatriztumedicadefamilia.familia-jimenez.es/"
     },
     {
         name: "Dra. Isabell Pardo",
