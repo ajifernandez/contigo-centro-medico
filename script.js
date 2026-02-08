@@ -251,3 +251,48 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 console.log('Contigo Centro Médico Integral - Website loaded successfully');
+
+// Mobile Menu Toggle
+const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+const navLinks = document.querySelector('.nav-links');
+
+if (mobileMenuBtn && navLinks) {
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenuBtn.classList.toggle('active');
+        navLinks.classList.toggle('active');
+        
+        // Prevent body scroll when menu is open
+        if (navLinks.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+    });
+
+    // Close menu when clicking on a link
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenuBtn.classList.remove('active');
+            navLinks.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!mobileMenuBtn.contains(e.target) && !navLinks.contains(e.target)) {
+            mobileMenuBtn.classList.remove('active');
+            navLinks.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 968) {
+            mobileMenuBtn.classList.remove('active');
+            navLinks.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+}
