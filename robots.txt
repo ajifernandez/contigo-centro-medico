@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://contigo-centro-medico.familia-jimenez.es/sitemap.xml
+
+# Block common non-content paths
+Disallow: /css/
+Disallow: /js/
+Disallow: /images/
+Disallow: /*.jpg$
+Disallow: /*.png$
+Disallow: /*.gif$
+Disallow: /*.svg$
+
+# Allow search engines to crawl images for image search
+User-agent: Googlebot-Image
+Allow: /images/
+
+User-agent: Bingbot
+Allow: /images/
+
+# Crawl delay (optional, be respectful)
+Crawl-delay: 1
