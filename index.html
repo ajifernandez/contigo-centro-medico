@@ -37,11 +37,11 @@
     <link rel="canonical" href="https://contigo-centro-medico.familia-jimenez.es/">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=20260209">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=20260209">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=20260209">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=20260209">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260209">
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico?v=20260209">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png?v=20260209">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png?v=20260209">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png?v=20260209">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=20260209">
     
     <!-- Schema.org Structured Data -->
     <script type="application/ld+json">
@@ -154,17 +154,59 @@
     <link rel="dns-prefetch" href="//placehold.co">
     
     <!-- Preload critical resources -->
-    <link rel="preload" href="style.css" as="style">
-    <link rel="preload" href="script.js" as="script">
+    <link rel="preload" href="css/style.css" as="style">
+    <link rel="preload" href="js/script.js" as="script">
     
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     
     <!-- Critical CSS (inline for faster rendering) -->
     <style>
         /* Critical above-the-fold styles */
         body{font-family:Inter,sans-serif;line-height:1.6;margin:0}.container{max-width:1200px;margin:0 auto;padding:0 20px}.hero{min-height:100vh;display:flex;align-items:center;background:linear-gradient(135deg,#8FB369 0%,#A5C682 100%);color:white;position:relative}.hero-content{text-align:center;max-width:900px;margin:0 auto;padding:80px 20px}.hero-title{font-size:clamp(2.5rem,6vw,5rem);margin-bottom:1rem}.btn{display:inline-block;padding:16px 40px;background:white;color:#8FB369;text-decoration:none;border-radius:50px;font-weight:600;transition:all 0.3s}.btn:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,0.15)}
+        
+        /* Tag filter styles */
+        .tags-container{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.tag{padding:8px 16px;background:#f0f4f8;border:2px solid #e1e8ed;border-radius:20px;font-size:14px;font-weight:500;color:#4a5568;cursor:pointer;transition:all 0.2s ease}.tag:hover{background:#e1e8ed;border-color:#cbd5e0;transform:translateY(-1px)}.tag.active{background:#8FB369;color:white;border-color:#8FB369}
     </style>
+    
+    <!-- Inline JavaScript for immediate functionality -->
+    <script>
+        // Tag filtering functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tags = document.querySelectorAll('.tag');
+            const teamMembers = document.querySelectorAll('.team-member');
+            const searchInput = document.getElementById('prof-search');
+            
+            // Tag click handlers
+            tags.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    filterProfessionals();
+                });
+            });
+            
+            // Search functionality
+            if (searchInput) {
+                searchInput.addEventListener('input', filterProfessionals);
+            }
+            
+            function filterProfessionals() {
+                const activeTags = Array.from(document.querySelectorAll('.tag.active')).map(t => t.textContent.toLowerCase());
+                const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+                
+                teamMembers.forEach(member => {
+                    const name = member.querySelector('.member-name').textContent.toLowerCase();
+                    const specialty = member.querySelector('.member-specialty').textContent.toLowerCase();
+                    const memberTags = Array.from(member.querySelectorAll('.member-tag')).map(t => t.textContent.toLowerCase());
+                    
+                    const matchesSearch = name.includes(searchTerm) || specialty.includes(searchTerm);
+                    const matchesTags = activeTags.length === 0 || activeTags.some(tag => memberTags.includes(tag));
+                    
+                    member.style.display = matchesSearch && matchesTags ? 'block' : 'none';
+                });
+            }
+        });
+    </script>
 </head>
 <body>
     <!-- Navigation -->
@@ -172,7 +214,7 @@
         <div class="container">
             <div class="nav-content">
                 <div class="logo">
-                    <a href="#"><img src="logo.png" alt="Contigo Centro Médico Integral - Centro médico en Motril" class="logo-img" width="200" height="60" loading="eager"></a>
+                    <a href="#"><img src="images/logo.png" alt="Contigo Centro Médico Integral - Centro médico en Motril" class="logo-img" width="200" height="60" loading="eager"></a>
                 </div>
                 <ul class="nav-links">
                     <li><a href="#inicio">Inicio</a></li>
@@ -362,34 +404,261 @@
                     <span class="search-icon">🔍</span>
                 </div>
                 <div id="active-tags" class="tags-container">
-                    <!-- Tags will be injected here -->
+                    <!-- Tags rendered immediately -->
+                    <span class="tag">Adultos</span>
+                    <span class="tag">Cardiología</span>
+                    <span class="tag">Digestivo</span>
+                    <span class="tag">Ginecología</span>
+                    <span class="tag">Logopedia</span>
+                    <span class="tag">Materno Infantil</span>
+                    <span class="tag">Medicina Familiar</span>
+                    <span class="tag">Neonatología</span>
+                    <span class="tag">Neurología</span>
+                    <span class="tag">Nutrición</span>
+                    <span class="tag">Obstetricia</span>
+                    <span class="tag">Pediatría</span>
+                    <span class="tag">Podología</span>
+                    <span class="tag">Psicología</span>
+                    <span class="tag">Terapias</span>
+                    <span class="tag">Traumatología</span>
+                    <span class="tag">Urología</span>
                 </div>
             </div>
 
             <div id="team-grid" class="team-grid">
-                <!-- Professionals will be injected by JavaScript -->
-                <div class="loading-state">Cargando profesionales...</div>
-                
-                <!-- Fallback content for mobile if JavaScript fails -->
-                <noscript>
-                    <div class="team-member">
-                        <div class="member-photo">
-                            <div class="photo-placeholder">
-                                <span class="placeholder-icon">👨‍⚕️</span>
-                            </div>
-                        </div>
-                        <div class="member-info">
-                            <h4 class="member-name">Dr. Javier Ruiz</h4>
-                            <p class="member-specialty">Pediatría y Neonatología</p>
-                            <p class="member-description">Especialista en cuidado crítico infantil y recién nacidos.</p>
-                            <div class="member-tags">
-                                <span class="member-tag">Pediatría</span>
-                                <span class="member-tag">Neonatología</span>
-                                <span class="member-tag">Materno Infantil</span>
-                            </div>
+                <!-- Professionals rendered immediately -->
+                <div class="team-member">
+                    <div class="member-photo">
+                        <div class="photo-placeholder">
+                            <span class="placeholder-icon">👨‍⚕️</span>
                         </div>
                     </div>
-                </noscript>
+                    <div class="member-info">
+                        <h4 class="member-name">Dr. Javier Ruiz</h4>
+                        <p class="member-specialty">Pediatría y Neonatología</p>
+                        <p class="member-description">Especialista en cuidado crítico infantil y recién nacidos.</p>
+                        <div class="member-tags">
+                            <span class="member-tag">Pediatría</span>
+                            <span class="member-tag">Neonatología</span>
+                            <span class="member-tag">Materno Infantil</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-photo">
+                        <div class="photo-placeholder">
+                            <span class="placeholder-icon">👩‍⚕️</span>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h4 class="member-name">Dra. Elena Martínez</h4>
+                        <p class="member-specialty">Ginecología y Obstetricia</p>
+                        <p class="member-description">Experta en seguimiento de embarazo y salud de la mujer.</p>
+                        <div class="member-tags">
+                            <span class="member-tag">Ginecología</span>
+                            <span class="member-tag">Obstetricia</span>
+                            <span class="member-tag">Adultos</span>
+                            <span class="member-tag">Materno Infantil</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-photo">
+                        <div class="photo-placeholder">
+                            <span class="placeholder-icon">👨‍⚕️</span>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h4 class="member-name">Dr. Carlos Sánchez</h4>
+                        <p class="member-specialty">Cardiología Infantil y Adultos</p>
+                        <p class="member-description">Especialista en salud cardiovascular para todas las edades.</p>
+                        <div class="member-tags">
+                            <span class="member-tag">Cardiología</span>
+                            <span class="member-tag">Adultos</span>
+                            <span class="member-tag">Materno Infantil</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-photo">
+                        <div class="photo-placeholder">
+                            <span class="placeholder-icon">👩‍⚕️</span>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h4 class="member-name">Dra. Ana Belén López</h4>
+                        <p class="member-specialty">Psicología Infantil</p>
+                        <p class="member-description">Apoyo emocional y desarrollo cognitivo en la infancia.</p>
+                        <div class="member-tags">
+                            <span class="member-tag">Psicología</span>
+                            <span class="member-tag">Terapias</span>
+                            <span class="member-tag">Materno Infantil</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-photo">
+                        <div class="photo-placeholder">
+                            <span class="placeholder-icon">👨‍⚕️</span>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h4 class="member-name">Dr. Miguel Ángel Torres</h4>
+                        <p class="member-specialty">Traumatología y Ortopedia</p>
+                        <p class="member-description">Cirugía ortopédica y tratamiento de lesiones deportivas.</p>
+                        <div class="member-tags">
+                            <span class="member-tag">Traumatología</span>
+                            <span class="member-tag">Adultos</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-photo">
+                        <div class="photo-placeholder">
+                            <span class="placeholder-icon">👩‍⚕️</span>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h4 class="member-name">Dra. Sofía Castro</h4>
+                        <p class="member-specialty">Nutrición y Dietética</p>
+                        <p class="member-description">Planes nutricionales personalizados y educación alimentaria.</p>
+                        <div class="member-tags">
+                            <span class="member-tag">Nutrición</span>
+                            <span class="member-tag">Adultos</span>
+                            <span class="member-tag">Materno Infantil</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-photo">
+                        <div class="photo-placeholder">
+                            <span class="placeholder-icon">👨‍⚕️</span>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h4 class="member-name">Dr. Roberto García</h4>
+                        <p class="member-specialty">Urología</p>
+                        <p class="member-description">Especialista en sistema urinario y salud masculina.</p>
+                        <div class="member-tags">
+                            <span class="member-tag">Urología</span>
+                            <span class="member-tag">Adultos</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-photo">
+                        <div class="photo-placeholder">
+                            <span class="placeholder-icon">👩‍⚕️</span>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h4 class="member-name">Dra. Lucía Ferrán</h4>
+                        <p class="member-specialty">Logopedia y Foniatría</p>
+                        <p class="member-description">Trastornos del habla y comunicación en niños y adultos.</p>
+                        <div class="member-tags">
+                            <span class="member-tag">Logopedia</span>
+                            <span class="member-tag">Terapias</span>
+                            <span class="member-tag">Materno Infantil</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-photo">
+                        <div class="photo-placeholder">
+                            <span class="placeholder-icon">👨‍⚕️</span>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h4 class="member-name">Dr. Germán Ocaña</h4>
+                        <p class="member-specialty">Podología Clínica</p>
+                        <p class="member-description">Cuidado integral del pie y biomecánica de la marcha.</p>
+                        <div class="member-tags">
+                            <span class="member-tag">Podología</span>
+                            <span class="member-tag">Adultos</span>
+                            <span class="member-tag">Materno Infantil</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-photo">
+                        <div class="photo-placeholder">
+                            <span class="placeholder-icon">👩‍⚕️</span>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h4 class="member-name">Dra. Carmen Valls</h4>
+                        <p class="member-specialty">Neurología Infantil</p>
+                        <p class="member-description">Diagnóstico y tratamiento de trastornos neurológicos en niños.</p>
+                        <div class="member-tags">
+                            <span class="member-tag">Neurología</span>
+                            <span class="member-tag">Materno Infantil</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-photo">
+                        <div class="photo-placeholder">
+                            <span class="placeholder-icon">👨‍⚕️</span>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h4 class="member-name">Dr. Alberto Moreno</h4>
+                        <p class="member-specialty">Digestivo</p>
+                        <p class="member-description">Especialista en sistema digestivo y endoscopia.</p>
+                        <div class="member-tags">
+                            <span class="member-tag">Digestivo</span>
+                            <span class="member-tag">Adultos</span>
+                            <span class="member-tag">Materno Infantil</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-photo">
+                        <div class="photo-placeholder">
+                            <span class="placeholder-icon">👩‍⚕️</span>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h4 class="member-name">Dra. Beatriz Jiménez Canet</h4>
+                        <p class="member-specialty">Medicina Familiar (Adultos)</p>
+                        <p class="member-description">Atención integral y personalizada para adultos, enfocada en la prevención y el bienestar.</p>
+                        <div class="member-tags">
+                            <span class="member-tag">Medicina Familiar</span>
+                            <span class="member-tag">Adultos</span>
+                        </div>
+                        <a href="https://beatriztumedicadefamilia.familia-jimenez.es/" class="personal-web-link" target="_blank">
+                            🌐 Ver web personal
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-photo">
+                        <div class="photo-placeholder">
+                            <span class="placeholder-icon">👩‍⚕️</span>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h4 class="member-name">Dra. Isabell Pardo</h4>
+                        <p class="member-specialty">Medicina Familiar</p>
+                        <p class="member-description">Atención primaria y medicina preventiva.</p>
+                        <div class="member-tags">
+                            <span class="member-tag">Medicina Familiar</span>
+                            <span class="member-tag">Adultos</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -545,7 +814,7 @@
         window.addEventListener('load', function() {
             // Load main script
             var script = document.createElement('script');
-            script.src = 'script.js';
+            script.src = 'js/script.js';
             script.async = true;
             document.body.appendChild(script);
         });
